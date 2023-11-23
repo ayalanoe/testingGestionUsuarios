@@ -1,0 +1,224 @@
+package webTesting;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class gestionUsuarioDocente {
+	ChromeDriver driver;
+	String url = "http://127.0.0.1:8000";
+	@Test(priority = -100)
+	
+	public void invocarNavegador() {
+		//le damos la ruta 
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\AYALA\\Desktop\\NOE\\Año 4\\Ciclo 8\\Diseño de Sistemas 2\\Computo 4\\Testing\\Selenium\\chromedriver-win64\\chromedriver.exe");
+		//instancia
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get(url);
+		
+	}
+	
+	@Test(priority = 1)
+	public void loginWebAseis() {
+		//para identificar elementos como el id, Selenium provee una interfaz llamada WebElement
+		WebElement userEmail = driver.findElement(By.name("email")); //locator 
+		WebElement userPassword = driver.findElement(By.name("password"));
+		WebElement loginButton = driver.findElement(By.id("btnLogin"));
+		//ejecución con el método sendKeys
+		userEmail.sendKeys("cm18064@ues.edu.sv");
+		userPassword.sendKeys("Minerva.23");
+		loginButton.click();
+	}
+	/*
+	@Test(priority = 2)
+	public void crearDocente() {
+		
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		 WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        btnGestionUsuarios.click();
+9
+	        // Esperar hasta que la opción de Nuevo Docente sea visible y hacer clic en ella
+	        WebElement btnNuevoDocente = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Nuevo docente')]")));
+	        btnNuevoDocente.click();
+
+	        // Esperar hasta que el modal sea visible
+	        WebElement modalCrearUsuario = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-CrearUsuario")));
+
+	        //relleno lo inputs del formulario para el registro del docente
+	        WebElement emailDocenteInput = modalCrearUsuario.findElement(By.id("emailDocente"));
+	        WebElement passwordDocenteInput = modalCrearUsuario.findElement(By.id("passwordDocente"));
+	        WebElement btnCrearDocente = modalCrearUsuario.findElement(By.id("btnCrearDocente"));
+
+	        // Ingreso los datos en el modal
+	        emailDocenteInput.sendKeys("nuevodocente@ues.edu.sv");
+	        passwordDocenteInput.sendKeys("Minerva.23");
+			//uso el metodo click para enviar los datos
+	        btnCrearDocente.click();
+	} */
+	/*
+	@Test(priority = 3)
+	public void editarDocente() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        
+	        String dataIdDocente = "4";
+	        String xpathExpression = "//button[@data-id-docente='" + dataIdDocente + "']";
+	        WebElement BotonVerMas = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+	        apiConexion(BotonVerMas);
+	        TimeUnit.SECONDS.sleep(5);
+	     
+            WebElement modalDocente = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-DocenteE")));
+
+            // Edito el nombre en el input
+            WebElement inputNombreDocente = modalDocente.findElement(By.id("inputNombreDocente"));
+            Select especialidadSelect = new Select(modalDocente.findElement(By.id("especialidadDocenteSelector")));
+            
+            // Selecciono la nueva especialidad que asignare en este caso uso el id respectivo para que se autoseleccione
+            especialidadSelect.selectByValue("13");  
+            
+            WebElement inputDescripcionDocente = modalDocente.findElement(By.id("inputDescripcionDocente"));
+            inputNombreDocente.clear(); //borro el dato anterior para luego mostrar el nuevo
+            inputNombreDocente.sendKeys("Luis Antonio Rudiger");
+            inputDescripcionDocente.clear(); //borro el dato anterior para luego mostrar el nuevo
+            inputDescripcionDocente.sendKeys("Me estoy especializando en esto");
+            TimeUnit.SECONDS.sleep(5);
+            
+            // Clickeo el boton para guardar la actualizacion de datos
+            WebElement btnAceptar = modalDocente.findElement(By.id("btnEditarDocente")); 
+            apiConexion(btnAceptar);
+            
+         // ahora reflejo esos cambios en la etiqueta P del listado de docentes
+            WebElement etiquetaNombreDocente = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".DocenteNombreTxt")));
+            String nuevoNombre = etiquetaNombreDocente.getText();
+            System.out.println("Nuevo nombre: " + nuevoNombre);
+
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}*/
+	/*
+	@Test(priority = 4)
+	public void buscarDocente() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+
+	            // Accedo a la barra de busqueda
+	            WebElement inputBusqueda = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("inputBusqueda")));
+
+	            //Utilizo al Docente "carlos" en la barra de búsqueda para realizar la prueba
+	            inputBusqueda.clear();
+	            inputBusqueda.sendKeys("carlos");
+	            WebElement resultadoBusqueda = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='resultado-busqueda']/div[contains(text(),'Carlos')]")));     
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}*/
+
+	/*
+	@Test(priority = 5)
+	public void verInfoDocente() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	//forma uno, paa ver el primer registro por defecto
+	        	//WebElement btnVerMas = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".BotonVerMas")));
+	        	
+	        	List<WebElement> botonesVerMas = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("button.BotonVerMas")));
+
+	            // Busco el botón "Ver más" correspondiente al docente con ID 5
+	            WebElement botonVerMasId5 = null;
+	            for (WebElement boton : botonesVerMas) {
+	                String dataIdDocente = boton.getAttribute("data-id-docente");
+	                if (dataIdDocente != null && dataIdDocente.equals("5")) {
+	                    botonVerMasId5 = boton;
+	                    break;
+	                }
+	            }
+
+	            // Si se encontró el botón "Ver más" del docente con ID 5, entonces si puede entrar
+	            if (botonVerMasId5 != null) {
+	                apiConexion(botonVerMasId5);
+	            } else {
+	                System.out.println("No se encontró el docente con ID 5.");
+	            }
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}*/
+	/*
+	@Test(priority = 6)
+	public void restablecerContraDocente() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	
+	        	WebElement btnRestablecerPass = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".BotonVerMas.BotonRestablecerPass")));
+	            apiConexion(btnRestablecerPass);
+	            
+	            /*
+	            WebElement inputBusqueda = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("inputBusqueda")));
+
+	            // Idea es simplicar el proceso buscando a por ejemplo al docente Pablo Alborán
+	            inputBusqueda.clear();
+	            inputBusqueda.sendKeys("Pablo Alborán");
+	            WebElement resultadoBusqueda = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='resultado-busqueda']/div[contains(text(),'Pablo Alborán')]")));
+	            WebElement contenedorRegistro = resultadoBusqueda.findElement(By.xpath("./ancestor::div[@class='cuerpoUsuarios']"));
+
+	            //una vez lo he buscado busco acceder a su ID de usuario 26 dentro del contenedor
+	            WebElement btnRestablecerPass = contenedorRegistro.findElement(By.xpath(".//button[@class='BotonVerMas BotonRestablecerPass' and @data-id-usuario='26']"));
+
+	            // Hago clic en el botón Restablecer
+	            apiConexion(btnRestablecerPass);*/
+	/*
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	*/
+		
+	@Test(priority = 7)
+	public void desactivarDocente() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	 WebElement btnModal = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-bs-toggle='modal' and @data-bs-target='#modalconfirmacion']")));
+	             btnModal.click();
+
+	             WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modalconfirmacion")));
+	             WebElement btnDesactivarDocente = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnDesactivarDocente")));
+	             btnDesactivarDocente.click();
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
+	public void apiConexion(WebElement elemento) {
+		try {
+			if (elemento.isEnabled() && elemento.isDisplayed()) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", elemento);
+			}else {
+				System.out.println("Elemento no encontrado ");
+			}
+		}catch (Exception e) {
+			System.out.println("Error, no hay conexion con la API: " + e.getMessage());
+		}
+	}
+	
+	
+}
