@@ -1,0 +1,241 @@
+package webTesting;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class gestionUsuarioEstudiante {
+	ChromeDriver driver;
+	String url = "http://127.0.0.1:8000";
+	@Test(priority = -100)
+	
+	public void invocarNavegador() {
+		//le damos la ruta 
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\AYALA\\Desktop\\NOE\\Año 4\\Ciclo 8\\Diseño de Sistemas 2\\Computo 4\\Testing\\Selenium\\chromedriver-win64\\chromedriver.exe");
+		//instancia
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get(url);
+		
+	}
+	
+	@Test(priority = 1)
+	public void loginWebAseis() {
+		espera(3);
+		//para identificar elementos como el id, Selenium provee una interfaz llamada WebElement
+		WebElement userEmail = driver.findElement(By.name("email")); //locator 
+		WebElement userPassword = driver.findElement(By.name("password"));
+		WebElement loginButton = driver.findElement(By.id("btnLogin"));
+		//ejecución con el método sendKeys
+		userEmail.sendKeys("cm18064@ues.edu.sv");
+		userPassword.sendKeys("Minerva.23");
+		espera(2);
+		loginButton.click();
+	
+	}
+	
+	/*
+	@Test(priority = 2)
+	public void crearEstudiante() {
+		
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		 WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        btnGestionUsuarios.click();
+
+	        // Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+	        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+	        btnEstudiantes.click();
+	        
+	        // Espero hasta que la opción de "Nuevo estudiante" sea visible y hacer clic en ella para realizar el proceso
+	        WebElement btnNuevoEstudiante = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Nuevo estudiante')]")));
+	        btnNuevoEstudiante.click();
+	        
+	        // Esperar hasta que el modal sea visible
+	        WebElement modalCrearUsuario = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-CrearUsuario")));
+	        espera(5);
+	        // Ahora puedes interactuar con los elementos del modal para ingresar datos y hacer clic en "Crear"
+	        WebElement emailEstudianteInput = modalCrearUsuario.findElement(By.id("emailEstudiante"));
+	        WebElement passwordEstudianteInput = modalCrearUsuario.findElement(By.id("passwordEstudiante"));
+	        WebElement btnCrearEstudiante = modalCrearUsuario.findElement(By.id("btnCrearEstudiante"));
+
+	        // Ingresa los datos en el modal
+	        emailEstudianteInput.sendKeys("nuevoestudent@ues.edu.sv");
+	        passwordEstudianteInput.sendKeys("Minerva.23");
+			espera(3);
+	        // Hacer clic en el botón "Crear"
+	        btnCrearEstudiante.click();
+	}*/
+	
+	/*
+	@Test(priority = 3)
+	public void verInfoEstudiante() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	
+	        	// Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+		        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+		        btnEstudiantes.click();
+	        	//forma uno, paa ver el primer registro por defecto
+	        	//WebElement btnVerMas = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".BotonVerMas")));
+	        	
+	        	List<WebElement> botonesVerMas = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("button.BotonVerMas")));
+
+	            // Busco el botón "Ver más" correspondiente al docente con ID 5
+	            WebElement botonVerMasId16 = null;
+	            for (WebElement boton : botonesVerMas) {
+	                String dataIdEstudiante = boton.getAttribute("data-id-estudiante");
+	                if (dataIdEstudiante != null && dataIdEstudiante.equals("16")) {
+	                    botonVerMasId16 = boton;
+	                    break;
+	                }
+	            }
+
+	            // Si se encontró el botón "Ver más" del estudiante con ID 16, entonces si puede entrar
+	            if (botonVerMasId16 != null) {
+	                apiConexion(botonVerMasId16);
+	            } else {
+	                System.out.println("No se encontró el estudiante con ID 16");
+	            }
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	*/
+	
+	/*
+	@Test(priority = 4)
+	public void editarEstudiante() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	// Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+		        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+		        btnEstudiantes.click();
+	        
+	        String dataIdEstudiante = "16";
+	        String xpathExpression = "//button[@data-id-estudiante='" + dataIdEstudiante + "']";
+	        WebElement BotonVerMas = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+	        apiConexion(BotonVerMas);
+	        espera(5);
+	     
+            WebElement modalEstudiante = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modal-EstudianteE")));
+
+            // Edito el nombre en el input
+            WebElement inputNombreEstudiante = modalEstudiante.findElement(By.id("inputNombreEstudiante"));
+            WebElement inputDescripcionEstudiante = modalEstudiante.findElement(By.id("inputDescripcionEstudiante"));
+            inputNombreEstudiante.clear(); //borro el dato anterior para luego mostrar el nuevo
+            inputNombreEstudiante.sendKeys("Cristiano Dos Santos");
+            inputDescripcionEstudiante.clear(); //borro el dato anterior para luego mostrar el nuevo
+            inputDescripcionEstudiante.sendKeys("Me interesa aprender algo nuevo cada día, y romper records");
+            espera(5);
+            
+            // Clickeo el boton para guardar la actualizacion de datos
+            WebElement btnAceptar = modalEstudiante.findElement(By.id("btnEditarEstudiante")); 
+            apiConexion(btnAceptar);
+            
+         // ahora reflejo esos cambios en la etiqueta P del listado de docentes
+            WebElement etiquetaNombreDocente = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".DocenteNombreTxt")));
+            String nuevoNombre = etiquetaNombreDocente.getText();
+            System.out.println("Nuevo nombre: " + nuevoNombre);
+
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	*/
+	/*
+	@Test(priority = 5)
+	public void buscarEstudiante() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	// Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+		        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+		        btnEstudiantes.click();
+
+	            // Accedo a la barra de busqueda
+	            WebElement inputBusqueda = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("inputBusqueda")));
+	            espera(5);
+	            //Utilizo mi usuario de estudiante personal en la barra de búsqueda para realizar la prueba
+	            inputBusqueda.clear();
+	            inputBusqueda.sendKeys("José Noé Ayala Rodríguez");
+	            WebElement resultadoBusqueda = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='resultado-busqueda']/div[contains(text(),'José Noé Ayala Rodríguez')]")));     
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}*/
+	
+	/*
+	@Test(priority = 6)
+	public void restablecerContraEstudiante() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	// Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+		        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+		        btnEstudiantes.click();
+	        	
+	        	WebElement btnRestablecerPass = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".BotonVerMas.BotonRestablecerPassEstudiante")));
+	            apiConexion(btnRestablecerPass);	
+		}catch (Exception e) { 
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	*/
+	
+	@Test(priority = 7)
+	public void desactivarEstudiante() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebElement btnGestionUsuarios = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnGestionUsuarios")));
+	        	btnGestionUsuarios.click();
+	        	// Hacer clic en el botón "Estudiantes" para redireccionar al otro rol
+		        WebElement btnEstudiantes = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href='http://127.0.0.1:8000/AdministrarUsuarios/indexEstudiante']/button")));
+		        btnEstudiantes.click();
+		        
+	        	 WebElement btnModal = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-bs-toggle='modal' and @data-bs-target='#modalconfirmacion']")));
+	             btnModal.click();
+
+	             WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("modalconfirmacion")));
+	             WebElement btnDesactivarEstudiante = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnDesactivarEstudiante")));
+	             btnDesactivarEstudiante.click();
+		}catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
+	
+	private void espera(int segundos) {
+        try {
+            TimeUnit.SECONDS.sleep(segundos);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+	public void apiConexion(WebElement elemento) {
+		try {
+			if (elemento.isEnabled() && elemento.isDisplayed()) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].click();", elemento);
+			}else {
+				System.out.println("Elemento no encontrado ");
+			}
+		}catch (Exception e) {
+			System.out.println("Error, no hay conexion con la API: " + e.getMessage());
+		}
+	}
+}
